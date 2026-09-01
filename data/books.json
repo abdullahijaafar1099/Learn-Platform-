@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "title": "audit",
+    "description": "to prepare cost analysis",
+    "category": "Farm Management",
+    "pdfName": "1 Auditing and Attestation (AUD) New (1).pdf",
+    "pdfUrl": "/uploads/books/1788032176241-1_Auditing_and_Attestation__AUD__New__1_.pdf"
+  },
+  {
+    "id": "1788034308515",
+    "title": "Poultry Farming",
+    "description": "Poultry Farming Guideline",
+    "category": "Poultry Farming",
+    "pdfName": "poultry_farming_guideline.pdf",
+    "pdfUrl": "/uploads/books/1788034308513-poultry_farming_guideline.pdf"
+  },
+  {
+    "id": "1788035596226",
+    "title": "Broiler Farming",
+    "description": "Guideline for broiler farming",
+    "category": "Poultry Farming",
+    "pdfName": "broiler_farming_guideline.pdf",
+    "pdfUrl": "/uploads/books/1788035596225-broiler_farming_guideline.pdf"
+  }
+]
