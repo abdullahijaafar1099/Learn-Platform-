@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 export default function BookForm() {
   const [message, setMessage] = useState("");
@@ -13,21 +14,48 @@ export default function BookForm() {
     setMessage("");
 
     const form = event.currentTarget;
-    const formData = new FormData(form);
 
     try {
+      const { data: sessionData, error: sessionError } =
+        await supabase.auth.getSession();
+
+      if (sessionError || !sessionData.session) {
+        setMessage("❌ Your admin session has expired. Please login again.");
+        return;
+      }
+
+      const formData = new FormData(form);
+
       const response = await fetch("/api/admin/books", {
         method: "POST",
+        headers: {
+          Authorization: `Bearer ${sessionData.session.access_token}`,
+        },
         body: formData,
       });
 
-      const data = await response.json();
+      const result = await response.json();
 
-      if (data.success) {
+      if (response.status === 401) {
+        setMessage("❌ Please login again.");
+        return;
+      }
+
+      if (response.status === 403) {
+        setMessage(`❌ Admin access required: ${JSON.stringify(result.debug)}`);
+        return;
+      }
+
+      if (!response.ok) {
+        setMessage(`❌ ${result.message || "Upload failed."}`);
+        return;
+      }
+
+      if (result.success) {
         setMessage("✅ Book uploaded successfully.");
         form.reset();
       } else {
-        setMessage(`❌ ${data.message || "Upload failed."}`);
+        setMessage(`❌ ${result.message || "Upload failed."}`);
       }
     } catch {
       setMessage("❌ Something went wrong. Please try again.");

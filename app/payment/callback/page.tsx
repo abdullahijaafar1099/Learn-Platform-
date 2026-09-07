@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 export default function PaymentCallbackPage() {
   const [status, setStatus] = useState("Verifying your payment...");
@@ -13,19 +14,42 @@ export default function PaymentCallbackPage() {
       return;
     }
 
-    fetch("/api/paystack/verify?reference=" + encodeURIComponent(reference))
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === "success") {
-          localStorage.setItem("poultrywise_access", "granted");
-          setStatus("Payment verified successfully! Your learning access is ready.");
-        } else {
-          setStatus("Payment could not be verified.");
+    async function verifyPayment() {
+      const { data } = await supabase.auth.getSession();
+
+      if (!data.session) {
+        setStatus("Please login again to verify your payment.");
+        return;
+      }
+
+      const res = await fetch(
+        "/api/paystack/verify?reference=" + encodeURIComponent(reference),
+        {
+          headers: {
+            Authorization: `Bearer ${data.session.access_token}`,
+          },
         }
-      })
-      .catch(() => {
-        setStatus("Unable to verify payment. Please try again.");
-      });
+      );
+
+      const result = await res.json();
+
+      if (result.status === "success") {
+        setStatus(
+          "Payment verified successfully! Redirecting to learning..."
+        );
+
+        setTimeout(() => {
+          window.location.href = "/learning";
+        }, 1500);
+      } else {
+        setStatus(
+          result.error || "Payment could not be verified."
+        );
+      }
+    }
+
+    verifyPayment();
+    return;
   }, []);
 
   return (
@@ -38,13 +62,6 @@ export default function PaymentCallbackPage() {
         </h1>
 
         <p className="mt-4 text-gray-600">{status}</p>
-
-        <a
-          href="/learning"
-          className="mt-6 inline-block rounded-xl bg-green-600 px-6 py-3 font-bold text-white"
-        >
-          🎓 Go to Learning
-        </a>
       </div>
     </main>
   );

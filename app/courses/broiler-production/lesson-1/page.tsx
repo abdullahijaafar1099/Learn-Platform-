@@ -1,6 +1,20 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function LessonOnePage() {
+  const [completed, setCompleted] = useState(false);
+
+  useEffect(() => {
+    setCompleted(localStorage.getItem("lesson-1-completed") === "true");
+  }, []);
+
+  function markComplete() {
+    localStorage.setItem("lesson-1-completed", "true");
+    setCompleted(true);
+  }
+
   return (
     <main className="min-h-screen bg-gray-50">
       <section className="bg-gradient-to-r from-green-800 to-green-500 px-6 py-14 text-white">
@@ -67,10 +81,18 @@ export default function LessonOnePage() {
 
             <button
               type="button"
+              onClick={markComplete}
               className="rounded-xl bg-green-600 px-6 py-3 font-bold text-white hover:bg-green-700"
             >
-              Mark Lesson Complete ✓
+              {completed ? "Lesson Completed ✓" : "Mark Lesson Complete ✓"}
             </button>
+
+            <Link
+              href="/courses/broiler-production/lesson-2"
+              className="rounded-xl bg-blue-600 px-6 py-3 font-bold text-white hover:bg-blue-700"
+            >
+              Next Lesson →
+            </Link>
           </div>
         </article>
       </section>

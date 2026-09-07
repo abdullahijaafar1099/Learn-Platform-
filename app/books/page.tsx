@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 type Book = {
   id: string;
@@ -13,23 +14,50 @@ type Book = {
 
 export default function BooksPage() {
   const [allowed, setAllowed] = useState(false);
-
-  useEffect(() => {
-    if (localStorage.getItem("poultrywise_access") === "granted") setAllowed(true);
-    else window.location.href = "/access";
-  }, []);
-
   const [books, setBooks] = useState<Book[]>([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadBooks() {
+    async function checkAccessAndLoadBooks() {
       try {
-        const response = await fetch("/api/admin/books");
-        const data = await response.json();
-        setBooks(Array.isArray(data) ? data : []);
+        const { data } = await supabase.auth.getSession();
+        const session = data.session;
+
+        if (!session) {
+          window.location.href = "/auth";
+          return;
+        }
+
+        const accessResponse = await fetch("/api/access", {
+          headers: {
+            Authorization: `Bearer ${session.access_token}`,
+          },
+        });
+
+        const access = await accessResponse.json();
+
+        if (!access.allowed) {
+          window.location.href = "/access";
+          return;
+        }
+
+        setAllowed(true);
+
+        const response = await fetch("/api/admin/books", {
+          headers: {
+            Authorization: `Bearer ${session.access_token}`,
+          },
+        });
+
+        if (!response.ok) {
+          setBooks([]);
+          return;
+        }
+
+        const booksData = await response.json();
+        setBooks(Array.isArray(booksData) ? booksData : []);
       } catch {
         setBooks([]);
       } finally {
@@ -37,8 +65,50 @@ export default function BooksPage() {
       }
     }
 
-    loadBooks();
+    checkAccessAndLoadBooks();
   }, []);
+
+
+  async function openPdf(url: string, download = false) {
+    try {
+      const { data } = await supabase.auth.getSession();
+      const session = data.session;
+
+      if (!session) {
+        window.location.href = "/auth";
+        return;
+      }
+
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
+
+      if (!response.ok) {
+        window.location.href = "/access";
+        return;
+      }
+
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+
+      if (download) {
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.download = "poultrywise-book.pdf";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      } else {
+        window.open(blobUrl, "_blank", "noopener,noreferrer");
+      }
+
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
+    } catch {
+      alert("Unable to open PDF.");
+    }
+  }
 
   const categories = useMemo(
     () => ["All", ...Array.from(new Set(books.map((book) => book.category)))],
@@ -70,9 +140,11 @@ export default function BooksPage() {
           <p className="mb-2 text-sm font-medium uppercase tracking-wider">
             PoultryWise Learning
           </p>
+
           <h1 className="text-3xl font-bold md:text-5xl">
             Books Library
           </h1>
+
           <p className="mt-3 max-w-2xl text-green-50">
             Explore our collection of useful books, guides, and learning
             materials.
@@ -87,6 +159,7 @@ export default function BooksPage() {
               <label className="mb-2 block text-sm font-semibold text-gray-700">
                 Search books
               </label>
+
               <input
                 type="text"
                 value={search}
@@ -100,6 +173,7 @@ export default function BooksPage() {
               <label className="mb-2 block text-sm font-semibold text-gray-700">
                 Category
               </label>
+
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
@@ -124,9 +198,11 @@ export default function BooksPage() {
         ) : filteredBooks.length === 0 ? (
           <div className="rounded-2xl bg-white px-6 py-16 text-center shadow-sm">
             <div className="mb-4 text-5xl">📚</div>
+
             <h2 className="text-xl font-bold text-gray-800">
               No books found
             </h2>
+
             <p className="mt-2 text-gray-500">
               Try another search or category.
             </p>
@@ -137,6 +213,7 @@ export default function BooksPage() {
               <h2 className="text-xl font-bold text-gray-800">
                 Available Books
               </h2>
+
               <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700">
                 {filteredBooks.length} books
               </span>
@@ -151,6 +228,7 @@ export default function BooksPage() {
                   <div className="flex h-48 items-center justify-center bg-gradient-to-br from-green-700 to-green-400 text-white">
                     <div className="text-center">
                       <div className="mb-3 text-6xl">📚</div>
+
                       <p className="px-6 text-lg font-bold">
                         {book.title}
                       </p>
@@ -171,22 +249,21 @@ export default function BooksPage() {
                     </p>
 
                     <div className="mt-5 flex gap-3">
-                      <a
-                        href={book.pdfUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <button
+                        type="button"
+                        onClick={() => openPdf(book.pdfUrl)}
                         className="flex-1 rounded-xl bg-green-600 px-4 py-3 text-center text-sm font-semibold text-white hover:bg-green-700"
                       >
                         📖 Read PDF
-                      </a>
+                      </button>
 
-                      <a
-                        href={book.pdfUrl}
-                        download
+                      <button
+                        type="button"
+                        onClick={() => openPdf(book.pdfUrl, true)}
                         className="rounded-xl border border-gray-300 px-4 py-3 text-center text-sm font-semibold text-gray-700 hover:bg-gray-50"
                       >
                         ⬇️
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </article>

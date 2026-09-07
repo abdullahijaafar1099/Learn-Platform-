@@ -1,0 +1,39 @@
+<svg width="900" height="650" viewBox="0 0 900 650" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="650" rx="40" fill="#ECFDF5"/>
+  <circle cx="720" cy="130" r="85" fill="#BBF7D0"/>
+  <circle cx="770" cy="120" r="34" fill="#86EFAC"/>
+
+  <path d="M0 500C140 420 250 440 370 500C510 570 650 540 900 430V650H0V500Z" fill="#DCFCE7"/>
+  <path d="M0 545C170 470 310 500 430 550C590 615 720 560 900 500V650H0V545Z" fill="#BBF7D0"/>
+
+  <rect x="560" y="245" width="245" height="180" rx="18" fill="#166534"/>
+  <path d="M540 250L682 155L825 250H540Z" fill="#14532D"/>
+  <rect x="598" y="290" width="65" height="65" rx="8" fill="#DCFCE7"/>
+  <rect x="702" y="290" width="65" height="65" rx="8" fill="#DCFCE7"/>
+  <rect x="660" y="345" width="45" height="80" rx="8" fill="#14532D"/>
+
+  <ellipse cx="300" cy="455" rx="145" ry="75" fill="#F8FAFC"/>
+  <circle cx="210" cy="390" r="65" fill="#F8FAFC"/>
+  <circle cx="225" cy="380" r="9" fill="#111827"/>
+  <path d="M150 390C115 395 110 425 145 430L175 414L150 390Z" fill="#F59E0B"/>
+  <path d="M185 330C182 300 205 286 220 310C238 285 263 300 252 330C230 345 205 345 185 330Z" fill="#EF4444"/>
+
+  <ellipse cx="470" cy="505" rx="105" ry="55" fill="#F8FAFC"/>
+  <circle cx="410" cy="455" r="50" fill="#F8FAFC"/>
+  <circle cx="420" cy="449" r="7" fill="#111827"/>
+  <path d="M370 460C340 465 338 488 365 492L390 478L370 460Z" fill="#F59E0B"/>
+  <path d="M390 410C390 388 410 380 420 398C435 380 455 393 447 414C430 426 410 424 390 410Z" fill="#EF4444"/>
+
+  <path d="M110 560C155 515 205 520 250 555C290 585 335 580 375 555" stroke="#22C55E" stroke-width="12" stroke-linecap="round"/>
+  <path d="M90 595C135 550 185 555 230 590C270 620 315 615 355 590" stroke="#16A34A" stroke-width="10" stroke-linecap="round"/>
+
+  <circle cx="825" cy="525" r="42" fill="#166534"/>
+  <path d="M805 525L820 540L848 508" stroke="white" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <text x="70" y="100" fill="#166534" font-family="Arial, sans-serif" font-size="28" font-weight="700">
+    POULTRYWISE
+  </text>
+  <text x="70" y="138" fill="#475569" font-family="Arial, sans-serif" font-size="18">
+    Practical Poultry Learning
+  </text>
+</svg>

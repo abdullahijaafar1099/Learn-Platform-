@@ -1,29 +1,53 @@
-"use client";
+ "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 export default function AccessPage() {
+  const [loading, setLoading] = useState(true);
+  const [paymentLoading, setPaymentLoading] = useState(false);
   const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
   const [country, setCountry] = useState("NG");
+  const [message, setMessage] = useState("");
 
-  async function startPayment() {
-    if (!email) {
-      setMessage("Please enter your email address.");
-      return;
+  useEffect(() => {
+    async function loadUser() {
+      const { data, error } = await supabase.auth.getUser();
+
+      if (error || !data.user?.email) {
+        window.location.href = "/auth";
+        return;
+      }
+
+      setEmail(data.user.email.trim().toLowerCase());
+      setLoading(false);
     }
 
-    setLoading(true);
+    loadUser();
+  }, []);
+
+  async function startPayment() {
+    if (!email) return;
+
+    setPaymentLoading(true);
     setMessage("");
 
     try {
+      const { data: sessionData, error: sessionError } =
+        await supabase.auth.getSession();
+
+      if (sessionError || !sessionData.session) {
+        window.location.href = "/auth";
+        return;
+      }
+
       const response = await fetch("/api/paystack/initialize", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionData.session.access_token}`,
         },
-        body: JSON.stringify({ email, country }),
+        body: JSON.stringify({ country }),
       });
 
       const data = await response.json();
@@ -37,13 +61,22 @@ export default function AccessPage() {
     } catch {
       setMessage("Something went wrong. Please try again.");
     } finally {
-      setLoading(false);
+      setPaymentLoading(false);
     }
+  }
+
+  if (loading) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-gray-50">
+        <p className="text-gray-600">Checking your account...</p>
+      </main>
+    );
   }
 
   return (
     <main className="min-h-screen bg-gray-50 px-6 py-12">
       <div className="mx-auto max-w-3xl">
+
         <div className="text-center">
           <div className="text-5xl">🐔</div>
 
@@ -52,17 +85,23 @@ export default function AccessPage() {
           </h1>
 
           <p className="mt-3 text-gray-600">
-            Learn poultry farming, read practical books, and grow your
-            poultry business.
+            Unlock poultry courses, lessons, books, and learning resources.
           </p>
         </div>
 
         <div className="mx-auto mt-10 max-w-xl rounded-2xl bg-white p-8 shadow-lg">
-          <p className="text-center text-sm font-semibold uppercase tracking-wide text-green-600">
-            Affordable Learning Access
-          </p>
 
-          <div className="mt-5 grid gap-4 sm:grid-cols-2">
+          <div className="rounded-xl bg-green-50 p-4">
+            <p className="text-sm font-semibold text-green-700">
+              Account
+            </p>
+
+            <p className="mt-1 break-all font-bold text-gray-900">
+              {email}
+            </p>
+          </div>
+
+          <div className="mt-7 grid gap-4 sm:grid-cols-2">
             <div className="rounded-xl border border-green-200 bg-green-50 p-5 text-center">
               <div className="text-3xl">🇳🇬</div>
               <h2 className="mt-2 font-bold text-gray-900">Nigeria</h2>
@@ -73,7 +112,9 @@ export default function AccessPage() {
 
             <div className="rounded-xl border border-blue-200 bg-blue-50 p-5 text-center">
               <div className="text-3xl">🌍</div>
-              <h2 className="mt-2 font-bold text-gray-900">International</h2>
+              <h2 className="mt-2 font-bold text-gray-900">
+                International
+              </h2>
               <p className="mt-2 text-3xl font-extrabold text-blue-700">
                 $2
               </p>
@@ -81,25 +122,18 @@ export default function AccessPage() {
           </div>
 
           <div className="mt-7">
-            <label className="mb-2 block text-sm font-semibold text-gray-700">Country</label>
-            <select value={country} onChange={(e) => setCountry(e.target.value)} className="w-full rounded-xl border border-gray-300 px-4 py-3">
+            <label className="mb-2 block text-sm font-semibold text-gray-700">
+              Country
+            </label>
+
+            <select
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              className="w-full rounded-xl border border-gray-300 px-4 py-3"
+            >
               <option value="NG">🇳🇬 Nigeria — ₦1,500</option>
               <option value="OTHER">🌍 Other countries — $2</option>
             </select>
-          </div>
-
-          <div className="mt-7">
-            <label className="mb-2 block text-sm font-semibold text-gray-700">
-              Email address
-            </label>
-
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
-            />
           </div>
 
           {message && (
@@ -111,14 +145,16 @@ export default function AccessPage() {
           <button
             type="button"
             onClick={startPayment}
-            disabled={loading}
+            disabled={paymentLoading}
             className="mt-6 w-full rounded-xl bg-green-600 px-6 py-4 font-bold text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {loading ? "Connecting to Paystack..." : "🔐 Get Learning Access"}
+            {paymentLoading
+              ? "Connecting to Paystack..."
+              : "🔐 Pay & Get Learning Access"}
           </button>
 
           <p className="mt-4 text-center text-xs text-gray-500">
-            Secure payment powered by Paystack.
+            Your account email is used for payment verification.
           </p>
         </div>
 
@@ -147,6 +183,7 @@ export default function AccessPage() {
             </p>
           </div>
         </div>
+
       </div>
     </main>
   );

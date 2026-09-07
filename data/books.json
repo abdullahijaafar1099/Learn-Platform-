@@ -1,26 +1,186 @@
 [
   {
-    "id": "1",
-    "title": "audit",
-    "description": "to prepare cost analysis",
+    "id": "1788444542451",
+    "title": "PoultryWise Poultry Farming Guide for Beginners",
+    "description": "foundational guide designed specifically for individuals starting or managing a commercial layer farming operation.",
+    "category": "Poultry Farming",
+    "pdfName": "poultrywise_guide_en_v2.pdf",
+    "pdfUrl": "/api/books/pdf/1788444542445-poultrywise_guide_en_v2.pdf"
+  },
+  {
+    "id": "1788444680193",
+    "title": "PoultryWise Layer Farming Masterclass",
+    "description": "perational guide focused on commercial egg production. It delivers practical, end-to-end management guidelines designed to help egg producers optimize flock performance, extend peak laying cycles, and maximize overall profitability.",
+    "category": "Poultry Farming",
+    "pdfName": "poultrywise_book2_layer_masterclass.pdf",
+    "pdfUrl": "/api/books/pdf/1788444680191-poultrywise_book2_layer_masterclass.pdf"
+  },
+  {
+    "id": "1788444950678",
+    "title": "PoultryWise Broiler Farming Masterclass",
+    "description": "provides step-by-step instructions and technical guidelines for high-yield commercial meat production",
+    "category": "Poultry Farming",
+    "pdfName": "poultrywise_book3_broiler_masterclass.pdf",
+    "pdfUrl": "/api/books/pdf/1788444950672-poultrywise_book3_broiler_masterclass.pdf"
+  },
+  {
+    "id": "1788515286719",
+    "title": "Hatchery Management & Breeder Operations",
+    "description": "Complete guide covering parent stock management, hatching egg handling.",
+    "category": "Poultry Farming",
+    "pdfName": "poultrywise_book4_hatchery_management.pdf",
+    "pdfUrl": "/api/books/pdf/1788515286716-poultrywise_book4_hatchery_management.pdf"
+  },
+  {
+    "id": "1788515419475",
+    "title": "Poultry Feed Milling & Nutrition Masterclass",
+    "description": "Raw Material Selection & Quality Assurance",
+    "category": "Poultry Farming",
+    "pdfName": "poultrywise_book5_feed_milling_nutrition (1).pdf",
+    "pdfUrl": "/api/books/pdf/1788515419472-poultrywise_book5_feed_milling_nutrition__1_.pdf"
+  },
+  {
+    "id": "1788515563623",
+    "title": "Egg Quality, Grading & Post-Harvest Handling is ready",
+    "description": "Anatomy & Physiology of Egg Formation.",
+    "category": "Poultry Farming",
+    "pdfName": "poultrywise_book7_egg_quality_and_grading.pdf",
+    "pdfUrl": "/api/books/pdf/1788515563621-poultrywise_book7_egg_quality_and_grading.pdf"
+  },
+  {
+    "id": "1788515781838",
+    "title": "Farm Economics & Management",
+    "description": "Foundational management goals, cost dynamics, and financial sustainability goals.",
+    "category": "Poultry Farming",
+    "pdfName": "PoultryWise_Book_8_Farm_Economics_and_Management.pdf",
+    "pdfUrl": "/api/books/pdf/1788515781837-PoultryWise_Book_8_Farm_Economics_and_Management.pdf"
+  },
+  {
+    "id": "1788515887192",
+    "title": "Sustainability, Environmental Management & Processing Solutions",
+    "description": "Eco-friendly poultry production, waste management, renewable energy integration, and post-harvest abattoir operations.",
+    "category": "Poultry Farming",
+    "pdfName": "poultrywise_book9_sustainability_and_processing.pdf",
+    "pdfUrl": "/api/books/pdf/1788515887189-poultrywise_book9_sustainability_and_processing.pdf"
+  },
+  {
+    "id": "1788515970958",
+    "title": "Precision Poultry Farming, IoT Automation & Future Technology Trends",
+    "description": "Introduction to Precision Poultry Farming (PPF)",
+    "category": "Poultry Farming",
+    "pdfName": "poultrywise_book10_precision_farming_and_automation.pdf",
+    "pdfUrl": "/api/books/pdf/1788515970956-poultrywise_book10_precision_farming_and_automation.pdf"
+  },
+  {
+    "id": "1788516080672",
+    "title": "Breeder Flock Management & Hatchery Operations",
+    "description": "Parent Stock (PS) Rearing & Body Weight Control",
+    "category": "Poultry Farming",
+    "pdfName": "poultrywise_book11_breeder_and_hatchery.pdf",
+    "pdfUrl": "/api/books/pdf/1788516080645-poultrywise_book11_breeder_and_hatchery.pdf"
+  },
+  {
+    "id": "1788516166428",
+    "title": "Sustainable Processing, Waste Valorization & Quality Assurance",
+    "description": "Primary Processing & Humane Slaughter Protocols",
+    "category": "Poultry Farming",
+    "pdfName": "poultrywise_book12_processing_and_quality.pdf",
+    "pdfUrl": "/api/books/pdf/1788516166426-poultrywise_book12_processing_and_quality.pdf"
+  },
+  {
+    "id": "1788516338814",
+    "title": "Chicken Health Series 1",
+    "description": "Biosecurity principles, sanitation barriers, pathogen exclusion, and hygiene zones.",
+    "category": "Chicken Health",
+    "pdfName": "chicken_health_book_1.pdf",
+    "pdfUrl": "/api/books/pdf/1788516338812-chicken_health_book_1.pdf"
+  },
+  {
+    "id": "1788516426676",
+    "title": "Chicken Health Series 2",
+    "description": "Avian immunology, cold-chain handling, and vaccination schedules for Marek's, Newcastle, and Gumboro.",
+    "category": "Chicken Health",
+    "pdfName": "chicken_health_book_2.pdf",
+    "pdfUrl": "/api/books/pdf/1788516426675-chicken_health_book_2.pdf"
+  },
+  {
+    "id": "1788516564259",
+    "title": "Chicken Health Series 3",
+    "description": "linical pathology, post-mortem diagnostics, symptom identification, and targeted treatments.",
+    "category": "Chicken Health",
+    "pdfName": "chicken_health_book_3.pdf",
+    "pdfUrl": "/api/books/pdf/1788516564257-chicken_health_book_3.pdf"
+  },
+  {
+    "id": "1788516697281",
+    "title": "Feed & Nutrition Series 1",
+    "description": "Avian digestive biology, essential amino acids, proteins, calcium/phosphorus balances, and energy ratios.",
+    "category": "Feed & Nutrition",
+    "pdfName": "feed_&_nutrition_book_1.pdf",
+    "pdfUrl": "/api/books/pdf/1788516697279-feed___nutrition_book_1.pdf"
+  },
+  {
+    "id": "1788516754501",
+    "title": "Feed & Nutrition Series 2",
+    "description": "Ingredient testing, mycotoxin binders, and step-by-step least-cost feed formulation for layers and broilers.",
+    "category": "Feed & Nutrition",
+    "pdfName": "feed_&_nutrition_book_2.pdf",
+    "pdfUrl": "/api/books/pdf/1788516754499-feed___nutrition_book_2.pdf"
+  },
+  {
+    "id": "1788516801348",
+    "title": "Feed & Nutrition Series 3",
+    "description": "Feed Conversion Ratio (FCR) formulas, gut health optimization, feed waste reduction, and pelleted feed dynamics.",
+    "category": "Feed & Nutrition",
+    "pdfName": "feed_&_nutrition_book_3.pdf",
+    "pdfUrl": "/api/books/pdf/1788516801340-feed___nutrition_book_3.pdf"
+  },
+  {
+    "id": "1788516905364",
+    "title": "Farm Management Series 1",
+    "description": "Ventilation design, open vs. tunnel housing, temperature regulation curves, and brooding parameters.",
     "category": "Farm Management",
-    "pdfName": "1 Auditing and Attestation (AUD) New (1).pdf",
-    "pdfUrl": "/uploads/books/1788032176241-1_Auditing_and_Attestation__AUD__New__1_.pdf"
+    "pdfName": "farm_management_book_1.pdf",
+    "pdfUrl": "/api/books/pdf/1788516905362-farm_management_book_1.pdf"
   },
   {
-    "id": "1788034308515",
-    "title": "Poultry Farming",
-    "description": "Poultry Farming Guideline",
-    "category": "Poultry Farming",
-    "pdfName": "poultry_farming_guideline.pdf",
-    "pdfUrl": "/uploads/books/1788034308513-poultry_farming_guideline.pdf"
+    "id": "1788516963779",
+    "title": "Farm Management Series 2",
+    "description": "Worker SOPs, logbooks, mortality thresholds, feed/water intake logs, and performance curves.",
+    "category": "Farm Management",
+    "pdfName": "farm_management_book_2.pdf",
+    "pdfUrl": "/api/books/pdf/1788516963777-farm_management_book_2.pdf"
   },
   {
-    "id": "1788035596226",
-    "title": "Broiler Farming",
-    "description": "Guideline for broiler farming",
+    "id": "1788517021461",
+    "title": "Farm Management Series 3",
+    "description": "Deep litter vs. battery cage mechanics, lighting schedules, pullet transitions, and flock turnaround.",
+    "category": "Farm Management",
+    "pdfName": "farm_management_book_3.pdf",
+    "pdfUrl": "/api/books/pdf/1788517021459-farm_management_book_3.pdf"
+  },
+  {
+    "id": "1788517257427",
+    "title": "Agribusiness & Commercial Strategy Series 1",
+    "description": "CapEx/OpEx budgeting, cost structure breakdowns, cash flow forecasting, and break-even analysis.",
+    "category": "Business",
+    "pdfName": "business_book_1.pdf",
+    "pdfUrl": "/api/books/pdf/1788517257426-business_book_1.pdf"
+  },
+  {
+    "id": "1788517317036",
+    "title": "Agribusiness & Commercial Strategy Series 2",
+    "description": "Off-take agreements, direct-to-consumer routes, batch timing, egg grading, and value-added packaging.",
+    "category": "Business",
+    "pdfName": "business_book_2.pdf",
+    "pdfUrl": "/api/books/pdf/1788517317034-business_book_2.pdf"
+  },
+  {
+    "id": "1788518000333",
+    "title": "Poultry Health, Biosecurity & Disease Management",
+    "description": "Foundations of Structural & Operational Biosecurity",
     "category": "Poultry Farming",
-    "pdfName": "broiler_farming_guideline.pdf",
-    "pdfUrl": "/uploads/books/1788035596225-broiler_farming_guideline.pdf"
+    "pdfName": "poultrywise_book6_health_and_biosecurity.pdf",
+    "pdfUrl": "/api/books/pdf/1788518000293-poultrywise_book6_health_and_biosecurity.pdf"
   }
 ]

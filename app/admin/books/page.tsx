@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import BookForm from "./components/BookForm";
+import { supabase } from "@/lib/supabase";
 
 type Book = {
   id: string;
@@ -16,10 +17,50 @@ export default function BooksPage() {
   const [books, setBooks] = useState<Book[]>([]);
   const [message, setMessage] = useState("");
 
+  async function getToken() {
+    const { data } = await supabase.auth.getSession();
+
+    if (!data.session) {
+      window.location.href = "/admin/login";
+      return null;
+    }
+
+    const { data: userData } = await supabase.auth.getUser();
+    const email = userData.user?.email?.trim().toLowerCase() || "";
+    const adminEmail =
+      process.env.NEXT_PUBLIC_ADMIN_EMAIL?.trim().toLowerCase() || "";
+
+    if (!email || email !== adminEmail) {
+      await supabase.auth.signOut();
+      window.location.href = "/admin/login";
+      return null;
+    }
+
+    return data.session.access_token;
+  }
+
   async function loadBooks() {
-    const response = await fetch("/api/admin/books");
-    const data = await response.json();
-    setBooks(Array.isArray(data) ? data : []);
+    try {
+      const token = await getToken();
+
+      if (!token) return;
+
+      const response = await fetch("/api/admin/books", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.status === 401 || response.status === 403) {
+        setMessage("❌ Admin access required.");
+        return;
+      }
+
+      const data = await response.json();
+      setBooks(Array.isArray(data) ? data : []);
+    } catch {
+      setMessage("❌ Unable to load books.");
+    }
   }
 
   useEffect(() => {
@@ -34,10 +75,15 @@ export default function BooksPage() {
     if (!confirmed) return;
 
     try {
+      const token = await getToken();
+
+      if (!token) return;
+
       const response = await fetch("/api/admin/books", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ id }),
       });
@@ -106,14 +152,34 @@ export default function BooksPage() {
                 </div>
 
                 <div className="flex gap-3">
-                  <a
-                    href={book.pdfUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      const token = await getToken();
+
+                      if (!token) return;
+
+                      const response = await fetch(book.pdfUrl, {
+                        headers: {
+                          Authorization: `Bearer ${token}`,
+                        },
+                      });
+
+                      if (!response.ok) {
+                        setMessage("❌ Unable to open PDF.");
+                        return;
+                      }
+
+                      const blob = await response.blob();
+                      const url = URL.createObjectURL(blob);
+                      window.open(url, "_blank", "noopener,noreferrer");
+
+                      setTimeout(() => URL.revokeObjectURL(url), 60000);
+                    }}
                     className="rounded-xl border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50"
                   >
                     📖 View
-                  </a>
+                  </button>
 
                   <button
                     type="button"
