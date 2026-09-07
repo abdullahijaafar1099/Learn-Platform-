@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-
 export async function GET(request: Request) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+
   const authHeader = request.headers.get("authorization");
 
   if (!authHeader?.startsWith("Bearer ")) {
@@ -25,7 +25,6 @@ export async function GET(request: Request) {
   const adminEmail =
     process.env.NEXT_PUBLIC_ADMIN_EMAIL?.trim().toLowerCase() || "";
 
-  // Admin gets free access
   if (email && adminEmail && email === adminEmail) {
     return NextResponse.json({
       allowed: true,
@@ -33,7 +32,6 @@ export async function GET(request: Request) {
     });
   }
 
-  // Check successful payment
   const { data: payment, error: paymentError } = await supabase
     .from("payments")
     .select("id, email, status")
@@ -43,12 +41,15 @@ export async function GET(request: Request) {
     .maybeSingle();
 
   if (paymentError) {
-    return NextResponse.json({
-      allowed: false,
-      role: "error",
-      reason: "payment_query_error",
-      message: paymentError.message,
-    }, { status: 500 });
+    return NextResponse.json(
+      {
+        allowed: false,
+        role: "error",
+        reason: "payment_query_error",
+        message: paymentError.message,
+      },
+      { status: 500 }
+    );
   }
 
   if (payment) {
