@@ -13,10 +13,11 @@ export async function proxy(request: NextRequest) {
     pathname === "/admin" ||
     pathname.startsWith("/admin/");
 
-  const isCourseRoute =
-    pathname.startsWith("/courses");
+    const isCourseRoute = pathname.startsWith("/courses");
 
-  if (!isAdminRoute && !isCourseRoute) {
+    const isBookRoute = pathname === "/books" || pathname.startsWith("/books/");
+
+  if (!isAdminRoute && !isCourseRoute && !isBookRoute) {
     return NextResponse.next();
   }
 
@@ -88,5 +89,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/courses/:path*"],
+  matcher: ["/admin/:path*", "/courses/:path*", "/books/:path*"],
 };
