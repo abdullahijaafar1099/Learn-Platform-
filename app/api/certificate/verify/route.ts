@@ -31,6 +31,21 @@ export async function GET(request: Request) {
 
     const email = userData.user.email.trim().toLowerCase();
 
+    const { data: premiumPayment } = await supabase
+      .from("payments")
+      .select("id")
+      .eq("email", email)
+      .eq("status", "success")
+      .limit(1)
+      .maybeSingle();
+
+    if (!premiumPayment) {
+      return NextResponse.json(
+        { error: "Premium access is required before purchasing a certificate." },
+        { status: 403 }
+      );
+    }
+
     const reference = new URL(request.url).searchParams.get("reference");
 
     if (!reference) {

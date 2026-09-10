@@ -31,6 +31,21 @@ export async function POST(request: Request) {
 
     const email = userData.user.email.trim().toLowerCase();
 
+    const { data: premiumPayment } = await supabase
+      .from("payments")
+      .select("id")
+      .eq("email", email)
+      .eq("status", "success")
+      .limit(1)
+      .maybeSingle();
+
+    if (!premiumPayment) {
+      return NextResponse.json(
+        { error: "Premium access is required before purchasing a certificate." },
+        { status: 403 }
+      );
+    }
+
     const body = await request.json().catch(() => ({}));
     const country = body?.country === "NG" ? "NG" : "OTHER";
     const isNigeria = country === "NG";
