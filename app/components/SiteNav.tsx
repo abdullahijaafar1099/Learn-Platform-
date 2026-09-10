@@ -50,10 +50,6 @@ export default function SiteNav() {
             Certificate
           </Link>
 
-          <Link href="/certificate" className="hover:text-green-600">
-            Certificate
-          </Link>
-
           <Link href="/consultation" className="hover:text-green-600">
             Consultation
           </Link>
