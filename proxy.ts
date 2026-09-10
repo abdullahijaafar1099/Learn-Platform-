@@ -16,8 +16,9 @@ export async function proxy(request: NextRequest) {
     const isCourseRoute = pathname.startsWith("/courses");
 
     const isBookRoute = pathname === "/books" || pathname.startsWith("/books/");
+    const isCertificatePaymentRoute = pathname === "/certificate/payment";
 
-  if (!isAdminRoute && !isCourseRoute && !isBookRoute) {
+  if (!isAdminRoute && !isCourseRoute && !isBookRoute && !isCertificatePaymentRoute) {
     return NextResponse.next();
   }
 
@@ -89,5 +90,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/courses/:path*", "/books/:path*"],
+  matcher: ["/admin/:path*", "/courses/:path*", "/books/:path*", "/certificate/payment"],
 };
