@@ -81,7 +81,7 @@ export async function GET(request: Request) {
     }
 
     const expectedAmount =
-      transaction.currency === "NGN" ? 150000 : 200;
+      transaction.currency === "NGN" ? 200000 : 300;
 
     if (Number(transaction.amount) !== expectedAmount) {
       return NextResponse.json(

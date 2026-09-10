@@ -46,7 +46,7 @@ export async function POST(request: Request) {
         },
         body: JSON.stringify({
           email,
-          amount: isNigeria ? 150000 : 200,
+          amount: isNigeria ? 200000 : 300,
           currency: isNigeria ? "NGN" : "USD",
           callback_url:
             (process.env.NEXT_PUBLIC_SITE_URL ||

@@ -106,7 +106,7 @@ export default function AccessPage() {
               <div className="text-3xl">🇳🇬</div>
               <h2 className="mt-2 font-bold text-gray-900">Nigeria</h2>
               <p className="mt-2 text-3xl font-extrabold text-green-700">
-                ₦1,500
+                ₦2,000
               </p>
             </div>
 
@@ -116,7 +116,7 @@ export default function AccessPage() {
                 International
               </h2>
               <p className="mt-2 text-3xl font-extrabold text-blue-700">
-                $2
+                $3
               </p>
             </div>
           </div>
@@ -131,8 +131,8 @@ export default function AccessPage() {
               onChange={(e) => setCountry(e.target.value)}
               className="w-full rounded-xl border border-gray-300 px-4 py-3"
             >
-              <option value="NG">🇳🇬 Nigeria — ₦1,500</option>
-              <option value="OTHER">🌍 Other countries — $2</option>
+              <option value="NG">🇳🇬 Nigeria — ₦2,000</option>
+              <option value="OTHER">🌍 Other countries — $3</option>
             </select>
           </div>
 
