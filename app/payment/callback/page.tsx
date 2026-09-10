@@ -7,7 +7,9 @@ export default function PaymentCallbackPage() {
   const [status, setStatus] = useState("Verifying your payment...");
 
   useEffect(() => {
-    const reference = new URLSearchParams(window.location.search).get("reference");
+    const params = new URLSearchParams(window.location.search);
+    const reference = params.get("reference");
+    const type = params.get("type");
 
     if (!reference) {
       setStatus("Payment reference not found.");
@@ -22,8 +24,14 @@ export default function PaymentCallbackPage() {
         return;
       }
 
+      const isCertificate = type === "certificate";
+
+      const endpoint = isCertificate
+        ? "/api/certificate/verify?reference="
+        : "/api/paystack/verify?reference=";
+
       const res = await fetch(
-        "/api/paystack/verify?reference=" + encodeURIComponent(reference),
+        endpoint + encodeURIComponent(reference),
         {
           headers: {
             Authorization: `Bearer ${data.session.access_token}`,
@@ -34,13 +42,23 @@ export default function PaymentCallbackPage() {
       const result = await res.json();
 
       if (result.status === "success") {
-        setStatus(
-          "Payment verified successfully! Redirecting to learning..."
-        );
+        if (isCertificate) {
+          setStatus(
+            "Certificate payment verified successfully! Redirecting..."
+          );
 
-        setTimeout(() => {
-          window.location.href = "/learning";
-        }, 1500);
+          setTimeout(() => {
+            window.location.href = "/certificate";
+          }, 1500);
+        } else {
+          setStatus(
+            "Payment verified successfully! Redirecting to learning..."
+          );
+
+          setTimeout(() => {
+            window.location.href = "/learning";
+          }, 1500);
+        }
       } else {
         setStatus(
           result.error || "Payment could not be verified."
@@ -49,7 +67,6 @@ export default function PaymentCallbackPage() {
     }
 
     verifyPayment();
-    return;
   }, []);
 
   return (
