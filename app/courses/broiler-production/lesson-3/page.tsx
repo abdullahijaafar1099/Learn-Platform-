@@ -7,11 +7,11 @@ export default function LessonThreePage() {
   const [completed, setCompleted] = useState(false);
 
   useEffect(() => {
-    setCompleted(localStorage.getItem("lesson-3-completed") === "true");
+    setCompleted(localStorage.getItem("broiler-lesson-3-completed") === "true");
   }, []);
 
   function markComplete() {
-    localStorage.setItem("lesson-3-completed", "true");
+    localStorage.setItem("broiler-lesson-3-completed", "true");
     setCompleted(true);
   }
 

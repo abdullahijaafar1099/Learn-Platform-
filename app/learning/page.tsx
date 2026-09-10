@@ -38,7 +38,7 @@ export default function LearningPage() {
       let layer = 0;
 
       for (let i = 1; i <= 6; i++) {
-        if (localStorage.getItem(`lesson-${i}-completed`) === "true") {
+        if (localStorage.getItem(`broiler-lesson-${i}-completed`) === "true") {
           broiler++;
         }
 

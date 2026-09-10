@@ -7,11 +7,11 @@ export default function LessonFourPage() {
   const [completed, setCompleted] = useState(false);
 
   useEffect(() => {
-    setCompleted(localStorage.getItem("lesson-4-completed") === "true");
+    setCompleted(localStorage.getItem("broiler-lesson-4-completed") === "true");
   }, []);
 
   function markComplete() {
-    localStorage.setItem("lesson-4-completed", "true");
+    localStorage.setItem("broiler-lesson-4-completed", "true");
     setCompleted(true);
   }
 
