@@ -42,7 +42,7 @@ export default function CoursesPage() {
       const response = await fetch("/api/courses", { headers });
       const coursesData = await response.json();
 
-      setCourses(Array.isArray(data) ? data : []);
+      setCourses(Array.isArray(coursesData) ? coursesData : []);
     }
 
     loadCourses();
