@@ -45,6 +45,14 @@ export default function MobileNav() {
             </Link>
 
             <Link
+              href="/certificate"
+              onClick={() => setOpen(false)}
+              className="font-semibold text-gray-700 hover:text-green-700"
+            >
+              Certificate
+            </Link>
+
+            <Link
               href="/consultation"
               onClick={() => setOpen(false)}
               className="font-semibold text-gray-700 hover:text-green-700"

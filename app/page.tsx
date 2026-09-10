@@ -22,6 +22,9 @@ export default function Home() {
             <Link href="/books" className="font-medium hover:text-green-700">
               Books
             </Link>
+            <Link href="/certificate" className="font-medium hover:text-green-700">
+              Certificate
+            </Link>
             <Link href="/consultation" className="font-medium hover:text-green-700">
               Consultation
             </Link>

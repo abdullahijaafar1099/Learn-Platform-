@@ -46,6 +46,14 @@ export default function SiteNav() {
             Books
           </Link>
 
+          <Link href="/certificate" className="hover:text-green-600">
+            Certificate
+          </Link>
+
+          <Link href="/certificate" className="hover:text-green-600">
+            Certificate
+          </Link>
+
           <Link href="/consultation" className="hover:text-green-600">
             Consultation
           </Link>
